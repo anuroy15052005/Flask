@@ -2,34 +2,32 @@ from flask import Flask
 
 app = Flask(__name__)
 
-# Static route
+
+
 @app.route("/")
 def home():
     return "home page"
 
-@app.route("/about")
-def about():
-    return "Welcome to about page"
+# Integer Converter
+@app.route("/user/<int:id>")
+def user(id):
+    return f"User ID: {id}"
 
+# Float Converter
+@app.route("/price/<float:amount>")
+def price(amount):
+    return f"Price: {amount}"
 
-# url mapping
-
-
-
-@app.route("/contact")
-def contact():
-    return "Welcome to contact page"
-
-# Dynamic Route
-@app.route("/users/<name>")
+# String Converter (Default Converter)
+@app.route("/users/<string:name>")
 def users(name):
-    return f"hello {name}"
+    return f"Name is : {name}"
 
+# Path Converter
+@app.route("/files/<path:file_path>")
+def files(file_path):
+    return file_path
 
-# Multiple dynamic parameters
-@app.route("/student/<name>/<course>")
-def student(name, course):
-    return f"{name} is learning {course}"
 
 if __name__ == "__main__":
     app.run(debug=True)
